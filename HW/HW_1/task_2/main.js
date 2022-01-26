@@ -3,7 +3,7 @@ let varB = +prompt('Введите переменную b: ');
 let varC = +prompt('Введите переменную c: ');
 
 let sumVar = varA+varB+varC;
-document.writeln(`Сумма переменных - ${sumVar}<br>`);
+document.write(`Сумма переменных - ${sumVar}<br>`);
 
 if(varA%2 == 0){
     document.write('Переменная а - четная.<br>')
@@ -14,5 +14,5 @@ if(varB%2 == 0){
 }
 
 if(varC%2 == 0){
-    document.write('Переменная c - четная.<br>')
+    document.write('Переменная c - четная.')
 }
