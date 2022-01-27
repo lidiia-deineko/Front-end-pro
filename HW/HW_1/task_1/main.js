@@ -11,7 +11,7 @@ document.write(`Обьем цилиндра с площадью основы *${
 
 document.write(`${line}<br>`);
 
-document.write(`V = ${result}.<br>`);
+document.write(`V = ${volumeCylinder}.<br>`);
 
 document.write(`${line}<br>`);
 
