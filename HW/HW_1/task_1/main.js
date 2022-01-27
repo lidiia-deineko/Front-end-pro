@@ -5,21 +5,12 @@ let line = '--------------------';
 let areaCylinder = Math.PI * radius**2;
 let volumeCylinder = areaCylinder * height;
 
-document.write('**************<br>');
+document.write(`**************<br>
+    Обьем цилиндра с площадью основы *${areaCylinder}*, радиусом *${radius}* и высотой *${height}* равен:<br>
+    ${line}<br>
+    V = ${volumeCylinder}.<br>
+    ${line}<br>
+    end.`);
+    
 
-document.write(`Обьем цилиндра с площадью основы *${areaCylinder}*, радиусом *${radius}* и высотой *${height}* равен:<br>`);
-
-document.write(`${line}<br>`);
-
-document.write(`V = ${volumeCylinder}.<br>`);
-
-document.write(`${line}<br>`);
-
-document.write('end.');
-
-
-
-
-
-
-
+                                                                                         
