@@ -8,19 +8,33 @@ b) найти максимальное число и минимальное чи
 let A = [];
 let n = 12;
 A.length = n;
-let B = [];
+let B = [];             
 
 for(i=0; i<n; i++){
     A[i] = Math.floor(Math.random()*271)+50;
-    if(A[i]%2 != 0){
-        B.push(A[i]);
+    let isPrimeNumber = true;
+    let num = A[i];
+    
+    if(num < 2){
+        continue;
     }
-}
+
+    for(j=2; j<num; j++){
+        if(num % j == 0){
+            isPrimeNumber = false;
+            break;
+        }
+    }
+
+    if(isPrimeNumber){
+        B.push(num);
+    }
+}      
 
 let maxNumberA = A[0];
 let minNumberA = A[0];
 
-for(i=1; i<n; i++){
+for(i=1; i<n; i++){                                     
     if (A[i] > maxNumberA){
         maxNumberA = A[i];
     }
@@ -55,11 +69,11 @@ let arr = [1,5,6,2,4];
 
 let arrLength = arr.length;
 
-for(i=0; i<arrLength; i++){
-    arr.push(arr[arrLength-1-i])
+for(i=0; i<arrLength/2; i++){            // 3 итерации
+    let varArr = arr[i];
+    arr[i] = arr[arrLength-1-i];
+    arr[arrLength-1-i] = varArr;
 }
-
-arr.splice(0, arrLength);
 
 console.log(arr);
 
