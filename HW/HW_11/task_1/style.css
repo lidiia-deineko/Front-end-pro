@@ -1,0 +1,13 @@
+.container{
+    display: flex; 
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 200px;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+    

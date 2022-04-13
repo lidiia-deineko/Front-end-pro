@@ -1,0 +1,29 @@
+body{
+    background:rgb(194, 236, 241);
+    color: rgb(9, 33, 99);
+}
+
+.container{
+    width: 70%;
+    margin: 0 auto;
+    color: pink;
+}
+
+.title{
+    color:brown;
+}
+
+.desc{
+    color:blue;
+    width: 250px;
+}
+
+.item{
+    color: green;
+    background-color: aqua;
+    height: 150px;
+    width: 350px;
+    border: 1px solid darkblue;
+    padding: 10px;
+    margin-bottom: 10px;
+}
