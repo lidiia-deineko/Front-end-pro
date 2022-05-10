@@ -1,0 +1,33 @@
+.block{
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.clicker{
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.counter{
+    font-size: 20px;
+    padding-left: 10px;
+    font-weight: bold;
+
+}
+
+.set-counter{
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.clear-counters{
+    font-size: 18px;
+    padding: 5px;
+}
