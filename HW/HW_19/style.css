@@ -1,0 +1,33 @@
+.container{
+    max-width: 300px;
+}
+
+.input-range{
+    width: 130px;
+    margin-right: 10px;
+}
+
+.input-num{
+    width: 130px;
+}
+
+.diagram{
+    height: 108px;
+    width: 30px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.block-red{
+    height: 3px;
+    background-color: red;
+}
+
+.block-green{
+    height: 50px;
+    background-color: green;
+}
