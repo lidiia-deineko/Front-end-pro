@@ -1,0 +1,48 @@
+ul{
+    display: flex;
+    padding-left: 0;
+    list-style: none;  
+}
+
+.menu-column{
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-row{
+    flex-direction: row;
+}
+
+.submenu{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+}
+
+.submenu-column{
+    left: 145px;
+    top: 0;
+}
+
+.submenu .submenu{
+    left: 100%;
+    top: 0px;
+}
+
+.menu-item{
+    position: relative;
+}
+
+.menu-link{
+    display: block;
+    text-decoration: none;
+    color: black;
+    background-color: #ccc;
+    padding: 10px 35px;
+    white-space: nowrap;
+    width: 75px;
+}
+
+.submenu.show{
+    display: flex;
+}
