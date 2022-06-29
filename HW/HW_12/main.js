@@ -4,54 +4,56 @@ Inner items - выпадающее меню при наведении мышки
 
 window.addEventListener('load', () => {
 
-   const data = {
-      name: 'menu',
-      type: 'column',
+   const data = { 
+      name: 'menu', 
+      type: 'column', 
       items: [
          {
             title: 'title 1',
-            id: 'a1'
+            handler: 'ActionAdd'
          },
          {
             title: 'title 2',
-            id: 'a2',
+            handler: 'ActionSaveAs',
             items: [
-               {title: 'inner 1',
-               items: [
-                  {title: 'inner 1'},
-                  {title: 'inner 2'}
-               ]},
-               {title: 'inner 2'}
+               { title: 'inner 1' },
+               { title: 'inner 2' }
             ]
          },
          {
             title: 'title 3',
-            id: 'a3'
+            handler: 'ActionExit'
          }
       ]
    }
 
-   const menuHandlers = {
-      a1: () => {console.log('ActionAdd')},
-      a2: () => {console.log('ActionSaveAs')},
-      a3: () => {console.log('ActionExit')}
+   class Actions{
+      static ActionAdd(){
+         console.log('ActionAdd')
+      }
+
+      static ActionSaveAs(){
+         console.log('ActionSaveAs')
+      }
+
+      static ActionExit(){
+         console.log('ActionExit')
+      }
    }
 
    class MenuRenderer{
-      constructor(parentTarget, list, type, handlers){
-            this.handlers = handlers;
+      constructor(parentTarget, list, type){
             this.renderDeepList(parentTarget, list, type);
-            this.initEvents();
+            this.initEvents(parentTarget, list);
       }
-
 
       createLiElem(target, item){
          const li = document.createElement('li');
          const a = document.createElement('a');
          li.classList.add('menu-item');
-         li.dataset.id = item.id;
          a.classList.add('menu-link');
          a.href = "#";
+         a.dataset.handler = item.handler;
          a.innerHTML = item.title;
          li.append(a);
          target.append(li);
@@ -84,8 +86,7 @@ window.addEventListener('load', () => {
          target.append(ul);
       }
 
-
-      initEvents(){
+      initEvents(target){
          const arrItem = nav.querySelectorAll('.menu-item');
          const arrLink = nav.querySelectorAll('.menu-link');
       
@@ -104,26 +105,24 @@ window.addEventListener('load', () => {
                  }
             });
 
-            item.addEventListener('click', (event) => {
-               event.stopPropagation();
-               const id = item.dataset.id;
-
-               if(!this.handlers[id]){
-                  console.warn('No hundlers!');
-               } else{
-                  this.handlers[id]();
-
-               }
-            });
          });
+
+         target.addEventListener('click', (event) => {
+            const handler = event.target.dataset.handler
+
+            if(!Actions[handler]){
+               return console.log('No handler for this item!')
+            }
+
+            Actions[handler]()
+         })
 
       }
 
    }
 
       const nav = document.querySelector('.nav');
-      
-      const myMenu = new MenuRenderer(nav, data.items, data.type, menuHandlers);
-   
+      const myMenu = new MenuRenderer(nav, data.items, data.type);
 })
+
 
