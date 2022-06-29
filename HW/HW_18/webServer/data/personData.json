@@ -1,0 +1,14 @@
+{
+    "updateTime": "8 Jun 2022",
+    "data": {
+        "name": "Jack",
+        "surname": "Wilcker",
+        "age": "28",
+        "height": "178 cm",
+        "weight": "75 kg",
+        "degree": "master",
+        "city": "London",
+        "street": "Greenroad Street, 20",
+        "postCode": "1584"
+    }
+}
