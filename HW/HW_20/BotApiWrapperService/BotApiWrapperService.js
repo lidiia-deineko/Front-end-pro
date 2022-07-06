@@ -16,39 +16,45 @@ const bot = new TelegramBot(token, {polling: true});
 http.createServer(function(req, res){
 
     if(req.url === '/weather/forecast/24p'){
-        onForecastWeatherRequest()
-        .then(weather => {
-            let infoData = [];
-            weather.list.forEach((item) => {
-              const temp = item.main.temp;
-              const time = item.dt_txt;
-              
-              const tempAndTime = {
-                temp,
-                time
-              }
+      onForecastWeatherRequest()
+      .then(weather => {
+          let infoData = [];
+          weather.list.forEach((item) => {
+            const temp =  Number((item.main.temp - 273.15).toFixed(2));
+            const time = item.dt_txt;
+           
+            const tempAndTime = {
+              temp,
+              time
+            }
 
-              if(infoData.length > 7){
-                return;
-              }
-             
-              infoData.push(tempAndTime)
-             })
+            if(infoData.length > 7){
+              return;
+            }
+           
+            infoData.push(tempAndTime)
+           })
 
-            bot.sendMessage(726578508, JSON.stringify(infoData, null, '\t'));
-            res.write(JSON.stringify(infoData));
-            res.end();
-        })
-        return;
+           let msg = ''
+           infoData.forEach((item) => {
+              msg += `<i>The time: </i><b>${item.time}</b>\n<i>The temp: </i><b>${item.temp} °C</b>\n\n`;
+           })
+
+          bot.sendMessage(726578508, msg, {parse_mode: "HTML"});
+          res.write(JSON.stringify(infoData));
+          res.end();
+      })
+      return;
     }
 
     if(req.url === '/weather/current'){
       onCurrenttWeatherRequest()
       .then(weather => {
-        const currentWeather = weather.main.temp;
-        bot.sendMessage(726578508, JSON.stringify(currentWeather, null, '\t'));
-        res.write(JSON.stringify(currentWeather));
-        res.end();
+        const currentWeatherKelvin = weather.main.temp;
+        const currentWeatherCelsius = Number((currentWeatherKelvin - 273.15).toFixed(2)); 
+        bot.sendMessage(726578508, `<i>The current weather: </i><b>${JSON.stringify(currentWeatherCelsius)} °C</b>`, {parse_mode: "HTML"});
+        res.write(JSON.stringify(currentWeatherCelsius));
+        res.end(); 
       })
 
       return;
