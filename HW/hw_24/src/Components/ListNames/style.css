@@ -1,4 +1,24 @@
 .list-items{
-    display: flex;
     padding: 0;
+    width: 300px;
+}
+
+.input{
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: 1px solid rgb(49, 131, 175);
+    color: rgb(29, 100, 141);
+
+}
+
+.btn{
+    background-color: rgb(209, 236, 251);
+    border: 1px solid rgb(49, 131, 175);
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(29, 100, 141);
 }

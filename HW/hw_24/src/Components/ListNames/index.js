@@ -35,8 +35,8 @@ const ListNames = () => {
 
     return(
         <>
-            <input placeholder="Name..." value={name} onChange={handleChange}></input>
-            <button onClick={onClick}>Add name</button>
+            <input className="input" placeholder="Name..." value={name} onChange={handleChange}></input>
+            <button className="btn" onClick={onClick}>Add name</button>
             <ul className="list-items">{listItems}</ul>  
         </>
     )
