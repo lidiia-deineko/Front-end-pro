@@ -1,0 +1,13 @@
+.list-item{
+    list-style: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: rgb(209, 236, 251);
+    text-align: center;
+}
+
+.exist{
+   background-color: rgb(246, 235, 164);
+}
+
