@@ -10,7 +10,9 @@ const CustomModal = (props) => {
     const [showState, setShowState] = useState(false)
 
     //новое значение введенное в инпут
-    const [value, updateValue] = useState('')
+    const [valueHeight, updateValueHeight] = useState('');
+    const [valueWidth, updateValueWidth] = useState('');
+    const [valueColor, updateValueColor] = useState('');
 
     const modalContext = useContext(MainContext)
 
@@ -28,21 +30,29 @@ const CustomModal = (props) => {
     //     event.stopPropagation()
     // })
 
-    const handleChange = useCallback((event) => {
+    const handleChangeHeight = useCallback((event) => {
         console.log(event.target.value)
-        updateValue(event.target.value)
-        
+        updateValueHeight(event.target.value)
     })
 
-    const changeValue = useCallback(() => {
+    const handleChangeWidth = useCallback((event) => {
+        console.log(event.target.value)
+        updateValueWidth(event.target.value)
+    })
+
+    const handleChangeColor = useCallback((event) => {
+        console.log(event.target.value)
+        updateValueColor(event.target.value)
+    })
+
+
+
+    const changeValues = useCallback(() => {
         console.log(modalContext.divElem, '1')
 
-        modalContext.divElem.innerHeight = `${value}px`
-
+        modalContext.divElem.innerHeight = `${valueHeight}px`
 
         const idElem = modalContext.divElem.id
-        console.log(idElem)
-
 
         const index = modalContext.list.findIndex((element) => {
             if(element.id === idElem){
@@ -50,27 +60,27 @@ const CustomModal = (props) => {
             }
         })
 
-        console.log('index', index)
-
         const newList = [...modalContext.list]
 
-        newList[index].innerHeight = `${value}px`
+        if(valueHeight.length === 0 ||valueWidth.length === 0 || valueColor === 0){
+            return
+        } else {
+            newList[index].innerHeight = `${valueHeight}px`;
+            newList[index].innerWidth = `${valueWidth}px`;
+            newList[index].color = `${valueColor}`;
+        }
         
         modalContext.setListState(newList)
 
-        console.log(newList, 'newList')
-
-        console.log(modalContext.list, 'List')
-
-
-
-
         modalContext.setDivElemState(modalContext.divElem)
       
-        updateValue('')
+        updateValueHeight('')
+        updateValueWidth('')
+        updateValueColor('')
+
         modalContext.setModalVisibleState(false)
     
-    }, [value])
+    }, [valueHeight, valueWidth, valueColor])
 
 
     if(!showState){
@@ -98,12 +108,22 @@ const CustomModal = (props) => {
                     <h1>Info about element:</h1>
                     <div>
                         <div>Heihgt: <span>{props.height}</span></div>
-                        <input className="input" type = 'text' placeholder="New value..." value={value}  onChange={handleChange}></input>
-                        <button className="btn" onClick={changeValue}>Add value</button>
+                        <input className="input" type = 'text' placeholder="New value..." value={valueHeight}  onChange={handleChangeHeight}></input>
+                        
+                    </div>
+                    <div>
+                        <div>Width: <span>{props.width}</span></div>
+                        <input className="input" type = 'text' placeholder="New value..." value={valueWidth}  onChange={handleChangeWidth}></input>
+                        
+                    </div>
+                    <div>
+                        <div>Color: <span>{props.color}</span></div>
+                        <input className="input" type = 'text' placeholder="New value..." value={valueColor}  onChange={handleChangeColor}></input>
+                        
                     </div>
                    
-                    <div>Width: <span>{props.width}</span></div>
-                    <div>Color: <span>{props.color}</span></div>
+                    
+                    <button className="btn" onClick={changeValues}>Add value</button>
                 </div>
             </Box>
         </Modal>
