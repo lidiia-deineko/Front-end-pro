@@ -1,22 +1,21 @@
 import './style.css'
 import { MainContext } from '../../App'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext } from 'react'
 
 
 const CustomDivElem = (props) => {
 
-    const modalContext = useContext(MainContext)
+    const mainContext = useContext(MainContext)
 
     const onClick = useCallback((event) => {
         event.stopPropagation()
-        modalContext.setModalVisibleState(true)  
+        mainContext.setModalVisibleState(true)  
 
         const id = event.target.dataset.id
-        const getDivElemById = modalContext.list.find(({id: curId}) => curId === +id);
+        const getDivElemById = mainContext.list.find(({id: curId}) => curId === +id);
         
-        modalContext.setDivElemState(getDivElemById)
-        console.log( modalContext.divElem)
-    },[modalContext.divElem])
+        mainContext.setDivElemState(getDivElemById)
+    },[mainContext.divElem])
   
      return(
         <div className='block' onClick={onClick} data-id={props.id}

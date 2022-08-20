@@ -5,6 +5,8 @@ import {useCallback, useEffect, useState, createContext} from 'react';
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
+import Reset from './Components/Reset';
+import Shaking from './Components/Shaking';
 
 
 export const MainContext = createContext();
@@ -19,27 +21,12 @@ function App() {
         localStorage.setItem('listFromStorage', JSON.stringify(list))
     }, [list])
 
-  
-    //divElem - clicked block
-    const [divElem, setDivElem] = useState({})
-
-    // const onGetDivElem = useCallback((clickedDivElem) => {
-  
-    //   setDivElem(clickedDivElem)
-    //   console.log(divElem, 'divElem')
-    // }, [divElem])
-
+  const [divElem, setDivElem] = useState({})
 
   const [isModalVisible, setModalVisible] = useState(false)
 
-  // const onShowModal = useCallback(() => {
-  //   setModalVisible(!isModalVisible)
-  // }, [isModalVisible])
-
-
   return (
     <div className="App">
-      <h1>Home Work 25</h1>
       <MainContext.Provider value={{
         isModalVisible, 
         setModalVisibleState: setModalVisible, 
@@ -47,11 +34,13 @@ function App() {
         setListState: setList, 
         divElem, 
         setDivElemState: setDivElem}}>
-      <CustomContainer />
-        {/* <Button onClick={onShowModal}>{isModalVisible ? 'Hide' : 'Show'}</Button> */}
-        <CustomModal  height={divElem.innerHeight} width={divElem.innerWidth} color={divElem.color}/>
-      </MainContext.Provider>
-      
+        <div className='btns'>
+          <Reset /> 
+          <Shaking />
+        </div>
+        <CustomContainer />
+          <CustomModal  height={divElem.innerHeight} width={divElem.innerWidth} color={divElem.color}/>
+        </MainContext.Provider>
     </div>
   );
 }

@@ -28,3 +28,43 @@
     background-color: azure;
     padding: 15px;
 }
+
+.btn{
+    padding: 5px 15px;
+    margin-top: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input{
+    padding: 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.text{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.inputColor{
+    border: none;
+}
+
+.closeBtn{
+    position: absolute;
+    right: 15px;
+}
+
+.warn{
+    margin-top: 10px;
+    color: red;
+    display: none;
+}
+
+.show{
+    display: block;
+}
