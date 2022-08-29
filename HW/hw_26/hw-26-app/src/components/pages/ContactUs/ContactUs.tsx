@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../../../App.css'
 import APIServices from "../../../services/APIServices";
@@ -11,21 +11,22 @@ const ContactUs:React.FC = () => {
     const sendMsg = useCallback(() => {
         if(msg.length === 0){
             setStatusError(true)
+            document.querySelector('.tarea')?.classList.add('isEmptyFields')
         }else{
             APIServices.saveMsg({msg})
             .then(resp => {
                 if(resp){
+                    document.querySelector('.tarea')?.classList.remove('isEmptyFields')
                     setMsg('')
-                    setStatusError(false)
                 } else {
                     console.error('Message was not sent!')
                 }
             })
-        }
-        
+        }  
     }, [msg])
 
     const changeMsg = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        document.querySelector('.tarea')?.classList.remove('isEmptyFields')
         setMsg(event.target.value)
     }, [msg])
 
@@ -44,7 +45,7 @@ const ContactUs:React.FC = () => {
         </div>
         
 
-        {isEmptyFields && <div className="error">You have not entered a message!</div>}
+        
     </div>
 }
 
