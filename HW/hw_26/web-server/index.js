@@ -128,11 +128,8 @@ app.put('/auth/login', (req, res) => {
     })
 })
 
-app.post('/save/msg', (req, res) => {
+app.post('/contact/ask', (req, res) => {
   const{msg} = req.body
-  // console.log(JSON.stringify(msg))
-  // res.send(true)
-
 
   ListActions.readFile('data/contact-questions.json')
     .then(msgList => {

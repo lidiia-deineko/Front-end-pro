@@ -62,7 +62,7 @@ class APIService{
     }
 
     saveMsg(payload:Msg):Promise<boolean>{
-        return fetch(`${this.host}/save/msg`, {
+        return fetch(`${this.host}/contact/ask`, {
             method: 'POST',
             body: JSON.stringify(payload),
             headers: {
