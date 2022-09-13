@@ -1,0 +1,290 @@
+.App {
+  /* text-align: center; */
+  box-sizing: border-box;
+  color: #5b5858;
+
+}
+
+.link{
+  text-decoration: none;
+  padding: 10px;
+  color: #000000;  
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.link:hover{
+  background-color: rgb(182, 182, 181);
+  color: #ffffff;
+}
+
+.link:not(:last-child){
+  border-right: 1px solid rgb(203, 200, 200);
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 0 35px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+}
+
+.title{
+  margin-top: 100px;
+  margin-bottom: 50px;
+  font-size: 24px;
+  text-align: center;
+  color: darkblue;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label{
+  font-size: 16px;
+  font-weight: 600;
+  color: darkblue;
+}
+
+.input{
+  padding: 8px;
+  font-size: 14px;
+  width: 250px;
+  margin-top: 5px;
+  border: 1px solid black;
+}
+
+.form-item{
+  margin-bottom: 15px;
+}
+
+.btn{
+  background-color: rgb(138, 162, 233);
+  border: 1px solid darkblue;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: darkblue;
+  margin-top: 25px;
+}
+
+.btn:hover{
+  color: #ffffff;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+}
+
+.header-page{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 35px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+}
+
+.link-border{
+border-left: 1px solid rgb(203, 200, 200);
+
+}
+
+.title-page{
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-size: 24px;
+  text-align: center;
+  color: darkblue;
+}
+
+.table{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+TABLE {
+  border-collapse: collapse; 
+  width: 500px; 
+  margin: 0 auto;
+ }
+ TH { 
+  background: rgb(138, 162, 233); 
+  text-align: left; 
+ }
+ TD {
+  text-align: center; 
+ }
+ TH, TD {
+  border: 1px solid black;
+  padding: 4px; 
+ }
+
+.tarea{
+  width: 200px;
+  height: 150px;
+  display: block;
+  position: relative;
+}
+
+.container{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.btn-textarea{
+  background-color:  rgb(138, 162, 233);
+  border: 1px solid darkblue;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: darkblue;
+  margin-top: 0px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.error{
+  color: red;
+  margin-top: 15px;
+}
+
+.tarea{
+  color: darkblue;
+  font-size: 16px;
+}
+
+.tarea-error{
+  color: darkblue;
+  font-size: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.isEmptyFields{
+  border: 1px solid rgb(245, 92, 92);
+}
+
+/* book-list */
+.container-books{
+  display: flex;
+  justify-content: space-between;
+}
+
+.all-book-list__left{
+  width: 70%;
+}
+
+.book-list_title{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.book-list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.book-item{
+  font-size: 14px;
+  width: 160px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px 10px;
+  margin: 5px;
+  border: 1px solid rgb(230, 227, 227);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+  padding-top: 45px;
+  position: relative;
+}
+
+.book-item_title{
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.book-item_star{
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+}
+
+.book-item_progress{
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+}
+
+.book-item_star__checked{
+  width: 25px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  display: none;
+}
+
+.hidden{
+  display: none;
+}
+
+/* modal */
+
+.modal{
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-container{
+  text-align: center;
+  background-color: #ffffff;
+  width: 350px;
+  position: absolute;
+  padding: 15px 0;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  border-radius: 10px;
+}
+
+.progess-title{
+  /* color: #1976d2; */
+}
+
+.progress-input{
+  width: 200px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.progress-btn{
+ display: flex;
+ justify-content: center;
+ margin-bottom: 15px;
+}
+
+.close-btn{
+  width: 25px;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+[
+	{
+		"id": "592321",
+		"title": "Agile web development with rails",
+		"author": "Dave Thomas, David Heinemeier Hansson",
+		"cover": "https://images-na.ssl-images-amazon.com/images/I/51KxXNu8g3L.jpg",
+		"progress": "50"
+	},
+	{
+		"id": "2375753",
+		"title": "Flask Web Development",
+		"author": "Miguel Grinberg",
+		"cover": "https://images-na.ssl-images-amazon.com/images/I/514Lbvt36zL._SX377_BO1,204,203,200_.jpg",
+		"progress": "25"
+	}
+]

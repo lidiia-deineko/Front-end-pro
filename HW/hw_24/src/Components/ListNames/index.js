@@ -8,28 +8,22 @@ const ListNames = () => {
     
     const [name, setName] = useState('');
     const [list, setList] = useState(names)
-    const [findIndex, setFindIndex] = useState()
 
     const handleChange = useCallback((event) => {
         setName(event.target.value)
-        setFindIndex('')
     })
 
     const onClick = useCallback(() => {
-        if(name === ''){
+        if(!name || list.includes(name)){
             return
-        }
-
-        if(!list.includes(name)){
+        } else {
             const newList = list.concat(name);
             setList(newList);
             setName('');
-        }else{
-            const indexItem = list.indexOf(name);
-            setFindIndex(indexItem)
-            setName('');
         }
-    })
+    }, [name])
+
+    const findIndex = list.findIndex(item => name === item)
 
     const listItems = list.map((name, index) => <ListItem className={index === findIndex ? ' exist' : ''} key={index} name={name}/>)
 
@@ -40,7 +34,6 @@ const ListNames = () => {
             <ul className="list-items">{listItems}</ul>  
         </>
     )
-
 }
 
 export default ListNames;

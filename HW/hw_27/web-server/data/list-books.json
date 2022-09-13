@@ -1,0 +1,76 @@
+{
+    "errors": [],
+    "books": [
+        {
+          "id": "1159142",
+          "title": "Agile Web Development with Rails",
+          "author": "Sam Ruby, Dave Thomas, David Heinemeier Hansson",
+          "cover": "https://pragprog.com/titles/rails6/agile-web-development-with-rails-6/rails6.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "2375753",
+          "title": "Flask Web Development",
+          "author": "Miguel Grinberg",
+          "cover": "https://images-na.ssl-images-amazon.com/images/I/514Lbvt36zL._SX377_BO1,204,203,200_.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "592321",
+          "title": "Agile web development with rails",
+          "author": "Dave Thomas, David Heinemeier Hansson",
+          "cover": "https://images-na.ssl-images-amazon.com/images/I/51KxXNu8g3L.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "643503",
+          "title": "CakePHP Application Development",
+          "author": "Ahsanul Bari, Anupom Syam",
+          "description": "I bought this book based on the reviews here. It was the highest rated CakePHP book on Amazon at the time so I figured I couldn't go wrong. I was a little wrong about that...\r\rThe book is pretty easy to follow, and it does a good job introducing you to how CakePHP works and talking you through using the MVC pattern. The reason I gave it such a low rating is because of the code typos that litter the pages and all of the terrible, terrible grammar throughout. It's as though the author didn't speak English natively and the editors didn't bother to fix anything! What's worse, some of the concepts in the book are stated exactly backwards; a read headache for the beginner.\r\rIf you already know PHP to some degree and are at least familiar with CakePHP, the book is pretty helpful for solidifying ideas. It's probably one of the better books I've read on the topic in terms of the order in which they teach you and how it's described. But, if you're new to PHP or CakePHP, don't start with this book; you'll be pulling your hair out trying to figure out where the typos in the code are and interpreting the text.\r\rOverall, I'm happy I picked the book up. It's the second one I've been reading and it's helped me make more sense of how some of the components work, but if you're new and you just want to learn how to use CakePHP, you should consider looking elsewhere, or at least reading The Manual on their website first.",
+          "cover": "https://images-na.ssl-images-amazon.com/images/I/41DTkgS-NbL._SX404_BO1,204,203,200_.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "547307",
+          "title": "Alex Homer, ASP.NET 2.0 Visual Web Developer 2005",
+          "author": "David Sussman",
+         "cover": "https://media.wiley.com/product_data/coverImage300/79/07645880/0764588079.jpg",
+         "progress": "0"
+        },
+        {
+          "id": "643519",
+          "title": "PHP Oracle Web Development",
+          "author": "Yuli Vasiliev",
+          "cover": "https://images-na.ssl-images-amazon.com/images/I/51XLVIAvV5L._SX404_BO1,204,203,200_.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "2166584",
+          "title": "WordPress for Web Developers",
+          "author": "Stephanie Leary (auth.)",
+          "cover": "https://m.media-amazon.com/images/I/51o+NKAbNoL.jpg",
+          "progress": "0"
+        },
+        {
+          "id": "643521",
+          "title": "MODx Web Development",
+          "author": "Antano Solar John, Antano Solar John",
+         "cover": "https://images-na.ssl-images-amazon.com/images/I/51b6FqrXdnL._SX404_BO1,204,203,200_.jpg",
+         "progress": "0"
+        },
+        {
+          "id": "682493",
+          "title": "Grok 1.0 Web Development",
+          "author": "Carlos de la Guardia",
+          "cover": "https://freepdf-books.com/doc-images/7212.png",
+          "progress": "0"
+        },
+        {
+          "id": "682507",
+          "title": "Professional JavaScript for Web Developers",
+          "author": "Nicholas C. Zakas",
+          "cover": "https://media.wiley.com/product_data/coverImage300/45/11193664/1119366445.jpg",
+          "progress": "0"
+        }
+      ]
+  }
