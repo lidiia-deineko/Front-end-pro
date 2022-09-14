@@ -14,6 +14,11 @@ const SignUp: React.FC = () => {
     const[isEmptyFields, setErrorEmptyFields] = useState<boolean>(false)
     const navigate = useNavigate();
 
+    const cleanErrors = () => {
+        setErrorPassword(false);
+        setErrorUser(false);
+    }
+
     const onSignUp = useCallback(() => {
 
         if(loginName.length !== 0 || password.length !== 0 || repeatPassword.length !== 0){
@@ -37,9 +42,6 @@ const SignUp: React.FC = () => {
                     APIService.createUser({loginName, password})
                         .then(resp => { 
                             if(resp){
-                                setLoginName('');
-                                setPassword('')
-                                setRepeatPassword('')
                                 UserService.putToStorage({loginName, password})
                                 navigate('/home');
                             }
@@ -56,22 +58,19 @@ const SignUp: React.FC = () => {
 
 
     const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-            setLoginName(event.target.value)
-            setErrorPassword(false);
-            setErrorUser(false);
-    }, [loginName])
+        setLoginName(event.target.value)
+        cleanErrors()
+    }, [])
 
     const changePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-    }, [password])
+        cleanErrors()
+    }, [])
 
     const changeRepeatPassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setRepeatPassword(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-    }, [repeatPassword])
+        cleanErrors()
+    }, [])
     
     return <div>
         <div className="header">

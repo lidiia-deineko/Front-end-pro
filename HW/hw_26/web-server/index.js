@@ -1,56 +1,28 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const fs = require('fs');
+const { listActions } = require('./listActions');
 
 const app = express();
 app.use(cors());
-
 app.use(bodyParser.json())
-
 const port = 8585;
 
-class ListActions{
-    static readFile(path){
-        return new Promise((resolve, reject) => {
-            fs.readFile(path, 'utf8', (err, userList) => {
-                if (err) {
-                  console.error(err);
-                  reject(err)
-                  return;
-                }
-
-                console.log(userList);
-                resolve(userList);
-
-              });
-        })
-    }
-
-    static writeFile(path, content){
-        fs.writeFile(path, JSON.stringify(content, null, '\t'), err => {
-            if (err) {
-              console.error(err);
-            }
-          });
-    }
-
-    static checkPassword(user, password){
-      const base64Pass = Buffer.from(password).toString('base64');
-  
-      return user.password === base64Pass;
-  }
-}
+const usersInSystemFile = 'users-in-system.json';
+const contactQuestionsFile = 'contact-questions.json';
 
 app.get('/user/all', (req, res) => {
-
-    ListActions.readFile('data/users-in-system.json')
+    listActions.readFile(`data/${usersInSystemFile}`)
       .then(userList => res.send(userList))
 });
 
 app.post('/auth/create', (req, res) => {
-
+  let response = true;  
   const {loginName, password} = req.body 
+  
+  if(password.length == 0){
+    response = false; 
+  }
 
   const user = {
     loginName,
@@ -59,32 +31,29 @@ app.post('/auth/create', (req, res) => {
     lastLoginTime: new Date().toLocaleString()
   }
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList)
       return Promise.resolve(parsedUserList)
     })
     .then(parsedUserList => {
-      parsedUserList.push(user)
-      return Promise.resolve(parsedUserList)
-    })
-    .then(parsedUserList => {
-      ListActions.writeFile('data/users-in-system.json', parsedUserList)
-      res.send(true)
-    })
-    .catch(() => {
-      res.send(false)
+      const foundUser = parsedUserList.find(elem => elem.loginName === loginName);
+
+      if(foundUser){
+        response = false; 
+      } else {
+        parsedUserList.push(user)
+        listActions.writeFile(`data/${usersInSystemFile}`, parsedUserList)
+      }
+      res.send(response)
     })
 })
 
-
 app.post('/auth/login', (req, res) => {
-
   let response = true;
-
   const {loginName, password} = req.body; 
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList);
       return Promise.resolve(parsedUserList);
@@ -94,14 +63,13 @@ app.post('/auth/login', (req, res) => {
 
       if(!user){
         response = false
-      }
+      } 
 
-      if(user && !ListActions.checkPassword(user, password)){
+      if(user && !listActions.checkPassword(user, password)){
         response = false
       }
 
       res.send(response)
-
     })
 })
 
@@ -110,7 +78,7 @@ app.put('/auth/login', (req, res) => {
   
   const {loginName} = req.body; 
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList);
       return Promise.resolve(parsedUserList);
@@ -122,7 +90,7 @@ app.put('/auth/login', (req, res) => {
         response = false
       } else{
         user.lastLoginTime = new Date().toLocaleString()
-        ListActions.writeFile('data/users-in-system.json', parsedUserList)
+        listActions.writeFile(`data/${usersInSystemFile}`, parsedUserList)
         res.send(response)
       }
     })
@@ -131,7 +99,7 @@ app.put('/auth/login', (req, res) => {
 app.post('/contact/ask', (req, res) => {
   const{msg} = req.body
 
-  ListActions.readFile('data/contact-questions.json')
+  listActions.readFile(`data/${contactQuestionsFile}`)
     .then(msgList => {
       const parsedMsgList = JSON.parse(msgList);
       return Promise.resolve(parsedMsgList);
@@ -141,7 +109,7 @@ app.post('/contact/ask', (req, res) => {
       return Promise.resolve(parsedMsgList);
     })
     .then(parsedMsgList => {
-      ListActions.writeFile('data/contact-questions.json', parsedMsgList)
+      listActions.writeFile(`data/${contactQuestionsFile}`, parsedMsgList)
       res.send(true)
     })
     .catch(() => {

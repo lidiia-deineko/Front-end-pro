@@ -28,7 +28,7 @@ const ContactUs:React.FC = () => {
     const changeMsg = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
         document.querySelector('.tarea')?.classList.remove('isEmptyFields')
         setMsg(event.target.value)
-    }, [msg])
+    }, [])
 
  
     return <div>

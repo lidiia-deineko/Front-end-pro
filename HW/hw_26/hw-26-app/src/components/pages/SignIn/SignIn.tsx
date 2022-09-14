@@ -5,7 +5,6 @@ import APIServices from "../../../services/APIServices"
 import UserService from "../../../services/UserService"
 
 const SignIn:React.FC = () => {
-
     const[loginName, setLoginName] = useState<string>('')
     const[password, setPassword] = useState<string>('')
     const [isCorrectPassword, setErrorPassword] = useState<boolean>(false);
@@ -13,6 +12,12 @@ const SignIn:React.FC = () => {
     const[isEmptyFields, setErrorEmptyFields] = useState<boolean>(false)
     const [isError, setErrorStatus] = useState<boolean>(false);
     const navigate = useNavigate();
+
+    const cleanErrors = () => {
+        setErrorPassword(false);
+        setErrorUser(false);
+        setErrorStatus(false);
+    }
 
     const onSignIn = useCallback(() => {
 
@@ -47,18 +52,14 @@ const SignIn:React.FC = () => {
     }, [loginName, password])
 
     const changeLogin = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setLoginName(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-        setErrorStatus(false);
-    }, [loginName])
+        setLoginName(event.target.value);
+        cleanErrors();
+    }, [])
 
     const changePassword = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-        setErrorStatus(false);
-    }, [password])
+        setPassword(event.target.value);
+        cleanErrors();
+    }, [])
 
     return <div>
         <div className="header">
