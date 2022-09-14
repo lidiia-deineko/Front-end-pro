@@ -1,57 +1,22 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const fs = require('fs');
+const { listActions } = require('./listActions');
+
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json())
 const port = 8585;
 
-class ListActions{
-    static readFile(path){
-        return new Promise((resolve, reject) => {
-            fs.readFile(path, 'utf8', (err, userList) => {
-                if (err) {
-                  console.error(err);
-                  reject(err)
-                  return;
-                }
-                resolve(userList);
-              });
-        })
-    }
-
-    static writeFile(path, content){
-        fs.writeFile(path, JSON.stringify(content, null, '\t'), err => {
-            if (err) {
-              console.error(err);
-            }
-          });
-    }
-
-    static readDir(path){
-      return new Promise((resolve, reject) => {
-          fs.readdir(path, (err, files) => {
-              if (err) {
-                console.error(err);
-                reject(err)
-                return;
-              }
-              resolve(files);
-            });
-      })
-  }
-
-    static checkPassword(user, password){
-      const base64Pass = Buffer.from(password).toString('base64');
-  
-      return user.password === base64Pass;
-  }
+const usersInSystemFile = 'users-in-system.json';
+const listBooks = 'list-books.json'
+const userId = (id) => {
+  return `user-${id}.json`
 }
 
 app.get('/user/all', (req, res) => {
-    ListActions.readFile('data/users-in-system.json')
+    listActions.readFile(`data/${usersInSystemFile}`)
       .then(userList => res.send(userList))
 });
 
@@ -67,7 +32,7 @@ app.post('/auth/create', (req, res) => {
     lastLoginTime: new Date().toLocaleString()
   }
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList)
       return Promise.resolve(parsedUserList)
@@ -77,7 +42,7 @@ app.post('/auth/create', (req, res) => {
       return Promise.resolve(parsedUserList)
     })
     .then(parsedUserList => {
-      ListActions.writeFile('data/users-in-system.json', parsedUserList)
+      listActions.writeFile(`data/${usersInSystemFile}`, parsedUserList)
       res.send({response: true, id: user.id})
     })
     .catch(() => {
@@ -94,7 +59,7 @@ app.post('/auth/login', (req, res) => {
 
   const {loginName, password} = req.body; 
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList);
       return Promise.resolve(parsedUserList);
@@ -105,7 +70,7 @@ app.post('/auth/login', (req, res) => {
       if(!user){
         response.response = false
       }
-      if(user && !ListActions.checkPassword(user, password)){
+      if(user && !listActions.checkPassword(user, password)){
         response.response = false
       }
       res.send(response)
@@ -117,7 +82,7 @@ app.put('/auth/login', (req, res) => {
   
   const {loginName} = req.body; 
 
-  ListActions.readFile('data/users-in-system.json')
+  listActions.readFile(`data/${usersInSystemFile}`)
     .then(userList => {
       const parsedUserList = JSON.parse(userList);
       return Promise.resolve(parsedUserList);
@@ -129,7 +94,7 @@ app.put('/auth/login', (req, res) => {
         response = false
       } else{
         user.lastLoginTime = new Date().toLocaleString()
-        ListActions.writeFile('data/users-in-system.json', parsedUserList)
+        listActions.writeFile(`data/${usersInSystemFile}`, parsedUserList)
         res.send(response)
       }
     })
@@ -137,7 +102,7 @@ app.put('/auth/login', (req, res) => {
 
 app.get('/api/books/available', (req, res) => {
 
-  ListActions.readFile('data/list-books.json')
+  listActions.readFile(`data/${listBooks}`)
     .then(booksList => {
       const parsedBooksList = JSON.parse(booksList);
       return Promise.resolve(parsedBooksList);
@@ -149,11 +114,11 @@ app.get('/api/books/available', (req, res) => {
 app.post('/api/:id/add-favorite', (req, res) => {
   const payload = req.body;
   const {id} = req.params;
-  ListActions.readDir('data')
+  listActions.readDir('data')
     .then(files => {
-      const isUserFile = files.includes(`user-${id}.json`)
+      const isUserFile = files.includes(userId(id))
       if(isUserFile){
-        ListActions.readFile(`data/user-${id}.json`)
+        listActions.readFile(`data/${userId(id)}`)
           .then(userListBooks => {
             const parsedUserListBook = JSON.parse(userListBooks)
             return Promise.resolve(parsedUserListBook);
@@ -170,7 +135,7 @@ app.post('/api/:id/add-favorite', (req, res) => {
             }
           })
           .then(parsedUserListBook => {
-            ListActions.writeFile(`data/user-${id}.json`, parsedUserListBook)
+            listActions.writeFile(`data/${userId(id)}`, parsedUserListBook)
             res.send(true)
           })
           .catch(() => {
@@ -179,7 +144,7 @@ app.post('/api/:id/add-favorite', (req, res) => {
       }else{
         const favoriteBooksList = []
         favoriteBooksList.push(payload)
-        ListActions.writeFile(`data/user-${id}.json`, favoriteBooksList)
+        listActions.writeFile(`data/${userId(id)}`, favoriteBooksList)
         res.send(true)
       }
     })
@@ -189,11 +154,11 @@ app.get('/api/:id', (req, res) => {
 
   const {id} = req.params;
 
-  ListActions.readDir('data')
+  listActions.readDir('data')
     .then(files => {
-      const isUserFile = files.includes(`user-${id}.json`)
+      const isUserFile = files.includes(userId(id))
       if(isUserFile){
-        ListActions.readFile(`data/user-${id}.json`)
+        listActions.readFile(`data/${userId(id)}`)
         .then(userBooksList => {
           const parsedUserBooksList = JSON.parse(userBooksList);
           return Promise.resolve(parsedUserBooksList);
@@ -209,7 +174,7 @@ app.post('/api/:id/delete-favorite', (req, res) => {
   const payload = req.body;
   const {id} = req.params;
 
-  ListActions.readFile(`data/user-${id}.json`)
+  listActions.readFile(`data/${userId(id)}`)
     .then(userBooksList => {
       const parsedUserBooksList = JSON.parse(userBooksList);
       return Promise.resolve(parsedUserBooksList);
@@ -222,7 +187,7 @@ app.post('/api/:id/delete-favorite', (req, res) => {
       return Promise.resolve(filterUserBooksList);
     })
     .then((filterUserBooksList) => {
-      ListActions.writeFile(`data/user-${id}.json`, filterUserBooksList)
+      listActions.writeFile(`data/${userId(id)}`, filterUserBooksList)
       res.send(true)
     })
     .catch(() => {
@@ -234,11 +199,7 @@ app.put('/api/:id/book/progress', (req, res) => {
   const {idCheckedBook, progressBook} = req.body;
   const {id} = req.params;
 
-  console.log(idCheckedBook, 'idCheckedBook')
-  console.log(progressBook, 'progressBook')
-  console.log(id, 'id')
-
-  ListActions.readFile(`data/user-${id}.json`)
+  listActions.readFile(`data/${userId(id)}`)
     .then(userBooksList => {
       const parsedUserBooksList = JSON.parse(userBooksList);
       return Promise.resolve(parsedUserBooksList);
@@ -248,7 +209,7 @@ app.put('/api/:id/book/progress', (req, res) => {
         return book.id === idCheckedBook
       })
       parsedUserBooksList[indexBookById].progress = progressBook
-      ListActions.writeFile(`data/user-${id}.json`, parsedUserBooksList)
+      listActions.writeFile(`data/${userId(id)}`, parsedUserBooksList)
       res.send(true)
     })
     .catch(() => {

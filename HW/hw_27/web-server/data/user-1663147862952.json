@@ -1,0 +1,16 @@
+[
+	{
+		"id": "1159142",
+		"title": "Agile Web Development with Rails",
+		"author": "Sam Ruby, Dave Thomas, David Heinemeier Hansson",
+		"cover": "https://pragprog.com/titles/rails6/agile-web-development-with-rails-6/rails6.jpg",
+		"progress": "25"
+	},
+	{
+		"id": "592321",
+		"title": "Agile web development with rails",
+		"author": "Dave Thomas, David Heinemeier Hansson",
+		"cover": "https://images-na.ssl-images-amazon.com/images/I/51KxXNu8g3L.jpg",
+		"progress": "100"
+	}
+]

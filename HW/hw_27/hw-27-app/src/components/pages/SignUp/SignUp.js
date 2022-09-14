@@ -14,12 +14,15 @@ const SignUp = () => {
     const[isEmptyFields, setErrorEmptyFields] = useState(false)
     const navigate = useNavigate();
 
-    const onSignUp = useCallback(() => {
+    const cleanErrors = () => {
+        setErrorPassword(false);
+        setErrorUser(false);
+    }
 
+    const onSignUp = useCallback(() => {
         if(loginName.length !== 0 || password.length !== 0 || repeatPassword.length !== 0){
             setErrorEmptyFields(false)
         }
-
         if(loginName.length == 0 || password.length == 0 || repeatPassword.length == 0){
             setErrorEmptyFields(true)
         }else if(password !== repeatPassword ){
@@ -28,7 +31,7 @@ const SignUp = () => {
             APIService
             .getUserList()
             .then(userList => {
-                const isUser = userList.find(elem => elem.loginName === loginName)
+                const isUser = userList.find(elem => elem.loginName === btoa(loginName))
                 if(isUser && loginName.length !== 0){
                     setErrorUser(true)
                 } else {
@@ -37,9 +40,6 @@ const SignUp = () => {
                     APIService.createUser({loginName, password})
                         .then(resp => { 
                             if(resp.response){
-                                setLoginName('');
-                                setPassword('')
-                                setRepeatPassword('')
                                 const userId = resp.id
                                 UserServices.putToStorage({userId})
                                 navigate('/home');
@@ -47,32 +47,27 @@ const SignUp = () => {
                             if(!resp.response){
                                 UserServices.deleteFromStorage()
                             }
-
                         })
                 }
             })
         }  
-        
     }, [loginName, password, repeatPassword])
-
 
     const changeLogin = useCallback((event) => {
             setLoginName(event.target.value)
-            setErrorPassword(false);
-            setErrorUser(false);
-    }, [loginName])
+            cleanErrors();
+    }, [])
 
     const changePassword = useCallback((event) => {
-        setPassword(event.target.value)
+        setPassword(event.target.value);
         setErrorPassword(false);
-        setErrorUser(false);
-    }, [password])
+        cleanErrors();
+    }, [])
 
     const changeRepeatPassword = useCallback((event) => {
-        setRepeatPassword(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-    }, [repeatPassword])
+        setRepeatPassword(event.target.value);
+        cleanErrors();
+    }, [])
     
     return <div>
         <div className="header">
@@ -94,8 +89,8 @@ const SignUp = () => {
             </div>
 
             <div className="form-item">
-            <label className="label" htmlFor="repeat-password">Repeat password: </label> <br />
-            <input className="input" type="password" id="repeat-password" value={repeatPassword} onChange={changeRepeatPassword} />
+                <label className="label" htmlFor="repeat-password">Repeat password: </label> <br />
+                <input className="input" type="password" id="repeat-password" value={repeatPassword} onChange={changeRepeatPassword} />
             </div>
 
             <button onClick={onSignUp} className="btn">Sign up</button>
@@ -104,7 +99,6 @@ const SignUp = () => {
             {isUser && <div className="error">This login is already taken. Please, try another.</div>}
             {isEmptyFields && <div className="error">There are empty fields!</div>}
         </div>
-        
     </div>
 }
 

@@ -3,7 +3,6 @@ import '../../../App.css'
 import { Link, useNavigate } from "react-router-dom"
 import APIServices from "../../../services/APIServices"
 import UserServices from "../../../services/UserServices"
-import { useSelector, useDispatch } from 'react-redux';
 
 const SignIn = () => {
 
@@ -15,14 +14,16 @@ const SignIn = () => {
     const [isError, setErrorStatus] = useState(false);
     const navigate = useNavigate();
   
-    const dispatch = useDispatch()
+    const cleanErrors = () => {
+        setErrorPassword(false);
+        setErrorUser(false);
+        setErrorStatus(false);
+    }
 
     const onSignIn = useCallback(() => {
-
         if(loginName.length !== 0 || password.length !== 0){
             setErrorEmptyFields(false)
         }
-
         if(loginName.length == 0 || password.length == 0){
             setErrorEmptyFields(true)
         } else {
@@ -37,7 +38,6 @@ const SignIn = () => {
                         .then(resp => {
                             if(resp){
                                 navigate('/home');
-                               
                             }
                         })
                     return;
@@ -48,22 +48,17 @@ const SignIn = () => {
                 }
             })
         }   
-        
     }, [loginName, password])
 
     const changeLogin = useCallback((event) => {
-        setLoginName(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-        setErrorStatus(false);
-    }, [loginName])
+        setLoginName(event.target.value);
+        cleanErrors();
+    }, [])
 
     const changePassword = useCallback((event) => {
-        setPassword(event.target.value)
-        setErrorPassword(false);
-        setErrorUser(false);
-        setErrorStatus(false);
-    }, [password])
+        setPassword(event.target.value);
+        cleanErrors();
+    }, [])
 
     return <div>
         <div className="header">
@@ -90,8 +85,6 @@ const SignIn = () => {
             {isEmptyFields && <div className="error">There are empty fields!</div>}
             {isError && <div className="error">User or password is incorrect!</div>}
         </div>
-        
-        
     </div>
 }
 

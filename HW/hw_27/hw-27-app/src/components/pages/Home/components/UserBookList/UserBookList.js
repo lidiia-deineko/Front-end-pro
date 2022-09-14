@@ -43,7 +43,6 @@ const UserBookList = () => {
                     console.log('The book was deleted')
                 }else(console.log('Server are not responding'))
             })
-         
     }, [userBooksList])
 
     const showModalWindow = useCallback((event) => {
